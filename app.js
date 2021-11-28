@@ -46,7 +46,7 @@ const mainRouter = require("./main.router");
 whrx.use('/',mainRouter)
 
 
-whrx.get("/", (req, res) => {
+whrx.get("/api", (req, res) => {
     res.send("I am working");
 });
 whrx.listen(port, () => {
