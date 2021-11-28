@@ -6,7 +6,7 @@ const { addData,
     deleteOne,
     deleteAll
 } = require('../../helpers/curd.helper');
-const { hospital } = require('../../models/hospitals/hospitals.schema');
+const { hospital } = require('../../models/hospitals.schema');
 
 
 const addHospital = (req, res) => {

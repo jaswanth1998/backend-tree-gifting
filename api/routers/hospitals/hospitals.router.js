@@ -8,8 +8,8 @@ const {
 } = require('../../services/hospitals/hospitals.service')
 
 router.post('/addHospital', requestCheck, addHospital)
-router.get('/',requestCheck,getAllHospitals)
-router.get('/:id',requestCheck,getHospital)
+router.get('/', requestCheck, getAllHospitals)
+router.get('/:id', requestCheck, getHospital)
 
 
 module.exports = router;
