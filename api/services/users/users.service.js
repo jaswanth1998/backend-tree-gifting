@@ -19,16 +19,16 @@ const getAllUsers = (req, res) => {
 }
 
 const getUser = (req, res) => {
-    find(res, user, {name:req.params.id});
+    find(res, user, {uid:req.params.uid});
 }
 
 const deleteUser = (req, res) => {
-    deleteAll(res, user, {name:req.params.id});
+    deleteAll(res, user, {uid:req.params.uid});
 }
 
 const updateUser = (req, res) => {
     
-    let filter = {name:req.appData.name}
+    let filter = {uid:req.appData.uid}
     let query = {$set: req.appData}
     updateOne(res, user, filter, query);
 }

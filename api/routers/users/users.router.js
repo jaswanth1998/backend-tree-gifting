@@ -11,8 +11,8 @@ const {
 
 router.post('/addUser', requestCheck, addUser);
 router.get('/getAllUsers', requestCheck, getAllUsers);
-router.get('/getUser/:id', requestCheck, getUser);
-router.get('/deleteUser/:id', requestCheck, deleteUser);
+router.get('/getUser/:uid', requestCheck, getUser);
+router.get('/deleteUser/:uid', requestCheck, deleteUser);
 router.post('/updateUser', requestCheck, updateUser);
 
 module.exports = router;
