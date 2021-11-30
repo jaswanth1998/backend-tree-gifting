@@ -1,46 +1,44 @@
 const mongoose = require('mongoose');
 
-const addressSchema = new mongoose.Schema({
-    uid: {
+const productSchema = new mongoose.Schema({
+    productId: {
         type: String,
         required: true
     },
-    name: {
+    productName: {
         type: String,
         required: true
     },
-    mobileNo: {
-        type: Number,
-        min: 10,
-        max: 12,
-        required: true
-    },
-    houseNo: {
+    description: {
         type: String,
         required: true
     },
-    area: {
+    productPhotos: {
+        type: Array,
+        required: true
+    },
+    link: {
         type: String,
         required: true
     },
-    landMark: {
-        type: String,
-        required: true
-    },
-    pincode: {
+    productRate: {
         type: Number,
         required: true
     },
-    city: {
+    discountRate: {
+        type: Number,
+        required: true
+    },
+    discountType: {
         type: String,
         required: true
     },
-    state: {
-        type: String,
+    minDiscount: {
+        type: Number,
         required: true
     },
-    country: {
-        type: String,
+    tags: {
+        type: Array,
         required: true
     }, 
     createdOn: {
@@ -54,8 +52,8 @@ const addressSchema = new mongoose.Schema({
      
 });
 
-const address = mongoose.model('Adress', addressSchema);
+const products = mongoose.model('Products', productSchema);
 
 module.exports = {
-    address
+    products
 }
