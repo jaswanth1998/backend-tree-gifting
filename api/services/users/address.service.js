@@ -29,6 +29,8 @@ const deleteAddress = (req, res) => {
 const updateAddress = (req, res) => {
     let filter = {uid: req.params.uid};
     let query = {
+        name : req.appData.name,
+        mobileNo : req.appData.mobileNo,
         houseNo : req.appData.houseNo,
         area: req.appData.area,
         landMark: req.appData.landMark,
