@@ -23,7 +23,12 @@ const getCartListByUid = (req, res) => {
 }
 
 const deleteCart = (req, res) => {
-    deleteAll(res, cart, {uid:req.params.uid,productId:req.params.productId});
+    console.log(req.params);
+     deleteAll(res, cart, {
+         uid : req.params.uid,
+         productId : req.params.productId
+        });
+   
 }
 
 const updateCart = (req, res) => {
