@@ -11,8 +11,8 @@ const addressSchema = new mongoose.Schema({
     },
     mobileNo: {
         type: Number,
-        min: 10,
-        max: 12,
+        minlength: 10,
+        maxlength: 12,
         required: true
     },
     houseNo: {
