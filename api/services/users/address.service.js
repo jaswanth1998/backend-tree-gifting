@@ -23,7 +23,7 @@ const getAddressById = (req, res) => {
 }
 
 const deleteAddress = (req, res) => {
-    deleteAll(res, address, {uid:req.params.uid});
+    deleteAll(res, address, {_id:req.params.uid});
 }
 
 const updateAddress = (req, res) => {

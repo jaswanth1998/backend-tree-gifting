@@ -3,43 +3,60 @@ const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema({
     productId: {
         type: String,
-        required: true
     },
     productName: {
         type: String,
         required: true
     },
-    description: {
+    merchant:{
         type: String,
         required: true
     },
-    productPhotos: {
-        type: Array,
+    productType: {
+        type: Object,
+    },
+    prodNameDesc: {
+        type: String,
         required: true
+    },
+    height: {
+        type: Number,
+        required: true
+    },
+    width: {
+        type: Number,
+        required: true
+    },
+    legnth: {
+        type: Number,
+        required: true
+    },
+    miniDesc: {
+        type: String,
+        
+    },
+    titleImg: {
+        type: String,
+    },
+    productImages: {
+        type: Array,
     },
     link: {
         type: String,
-        required: true
     },
-    productRate: {
+    price: {
         type: Number,
         required: true
     },
-    discountRate: {
+    discount: {
         type: Number,
-        required: true
-    },
-    discountType: {
-        type: String,
         required: true
     },
     minDiscount: {
         type: Number,
-        required: true
     },
     tags: {
         type: Array,
-        required: true
     }, 
     createdOn: {
         type: Date,

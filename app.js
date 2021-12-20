@@ -43,7 +43,7 @@ whrx.use(express.json());
 
 const mainRouter = require("./main.router");
 
-whrx.use('/',mainRouter)
+whrx.use('/api/v1',mainRouter)
 
 
 whrx.get("/api", (req, res) => {

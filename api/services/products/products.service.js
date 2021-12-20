@@ -19,29 +19,25 @@ const getProducts = (req, res) => {
 }
 
 const getProductsById = (req, res) => {
-    find(res, products, {productId:req.params.productId});
+    find(res, products, {_id:req.params.productId});
 }
 
 const deleteProducts = (req, res) => {
-    deleteAll(res, products, {productId:req.params.productId});
+    deleteAll(res, products, {_id:req.params.productId});
 }
 
 const updateProducts = (req, res) => {
-    let filter = {productId: req.params.productId};
+    let filter = {_id: req.params.productId};
     let query = {
-        productName : req.appData.productName,
-        description : req.appData.description,
-        productPhotos : req.appData.productPhotos,
-        link: req.appData.link,
-        productRate: req.appData.productRate,
-        discountRate: req.appData.discountRate,
-        discountType: req.appData.discountType,
-        minDiscount: req.appData.minDiscount,
-        tags: req.appData.tags,
+        ...req.appData,
         updateOn: new Date()
     }
 
     updateOne(res, products, filter, query);
+}
+
+const getProductsByType = (req, res) => {
+    find(res, products, {productType:req.params.productType});
 }
 
 module.exports = {
@@ -49,5 +45,6 @@ module.exports = {
     getProducts,
     getProductsById,
     deleteProducts,
-    updateProducts
+    updateProducts,
+    getProductsByType
 }
