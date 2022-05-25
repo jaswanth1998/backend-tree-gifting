@@ -1,20 +1,20 @@
 const express = require("express");
-const whrx = express();
+const juteBags = express();
 require('dotenv').config()
 const port = process.env.PORT || 9001;
 var cors = require("cors");
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose
-  .connect(
-    process.env.MONGODB_URI,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
-  .then(() => console.log("Connected to MongoDB ..."))
-  .catch((err) => console.error("Could not connect to MongoDB:‌", err));
+    .connect(
+        process.env.MONGODB_URI,
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        }
+    )
+    .then(() => console.log("Connected to MongoDB ..."))
+    .catch((err) => console.error("Could not connect to MongoDB:‌", err));
 
 const allowedOrigins = [
     "http://localhost:4200",
@@ -25,7 +25,7 @@ const allowedOrigins = [
     "https://eiwms.securisk.in",
     "https://app.securisk.in"
 ];
-whrx.use(
+juteBags.use(
     cors({
         origin: function (origin, callback) {
             if (!origin) return callback(null, true);
@@ -39,17 +39,18 @@ whrx.use(
         },
     })
 );
-whrx.use(express.json());
+
+juteBags.use(express.json());
 
 const mainRouter = require("./main.router");
 
-whrx.use('/api/v1',mainRouter)
+juteBags.use('/api/v1', mainRouter)
 
 
-whrx.get("/api", (req, res) => {
+juteBags.get("/api", (req, res) => {
     res.send("I am working");
 });
-whrx.listen(port, () => {
+juteBags.listen(port, () => {
     console.log("server up and running on PORT :", port);
 });
 
