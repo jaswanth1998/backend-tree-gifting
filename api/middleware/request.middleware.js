@@ -11,7 +11,8 @@ const requestCheck = async (req, res, next) => {
         req.appData = req.query;
     }
     let token = req.get("authorization");
-    if (token) {
+    next();
+   /* if (token) {
         try {
             token = token.slice(7);
             const response = await checkUserToken(token);
@@ -33,7 +34,7 @@ const requestCheck = async (req, res, next) => {
         res.status(401).json({
             message: 'Unauthorized'
         });
-    }
+    }*/
     console.log("I am looger",
         req.baseUrl + req.path)
 
