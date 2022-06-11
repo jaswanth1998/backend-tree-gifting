@@ -12,19 +12,19 @@ const {
 } = require('./../helpers/promiseCurd.helper');
 
 //const { merchantData } = require('../../merchantData/merchant.schema');
-const { ngoData } = require('./../models/NGOs.schema');
-const addNgoDetails = async (req, res) => {
-    const ngodata = new ngoData(req.appData);
+const { ecardData } = require('./../models/ecards.schema');
+const addEcardDetails = async (req, res) => {
+    const ecarddata = new ecardData(req.appData);
     try {
-        const data = await addData(res, ngodata);
+        const data = await addData(res, ecarddata);
         appDeafultResponse(res, true, data);
     } catch (err) {
         appDeafultResponse(res, false, err);
     }
 }
-const getNgoDetails = async (req, res) => {
+const getEcardDetails = async (req, res) => {
     try {
-        const data = await getAllData(res, ngoData);
+        const data = await getAllData(res, ecardData);
 
         appDeafultResponse(res, true, data);
     } catch (err) {
@@ -32,20 +32,23 @@ const getNgoDetails = async (req, res) => {
     }
 }
 
-const getNgoDataById = async (req, res) => {
+const getEcardDataById = async (req, res) => {
     try {
-        const data = await find(res, ngoData);
+        
+        const data = await find(res, ecardData,{
+            _id: req.params.ecardId
+        });
         appDeafultResponse(res, true, data);
     } catch (err) {
         appDeafultResponse(res, false, err);
     }
 }
-const deleteNgoDataByID = async (req, res) => {
+const deleteEcardDataByID = async (req, res) => {
     try {
         const query = {
-            _id: req.params.originalId
+            _id: req.params.ecardId
         }
-        const data = await deleteAll(res, ngoData,query);
+        const data = await deleteAll(res, ecardData,query);
 
         appDeafultResponse(res, true, data);
     }
@@ -54,14 +57,14 @@ const deleteNgoDataByID = async (req, res) => {
     }
 }
 
-const updateNgoData = async (req, res) => {
+const updateEcardData = async (req, res) => {
     try {
-        let filter = { _id: req.params.originalId };
+        let filter = { _id: req.params.ecardId };
         let query = {
             ...req.appData,
             updateOn: new Date()
         }
-        const data = await updateAll(res, ngoData, filter, query);
+        const data = await updateAll(res, ecardData, filter, query);
         appDeafultResponse(res, true, data);
     }
     catch (err) {
@@ -69,9 +72,9 @@ const updateNgoData = async (req, res) => {
     }
 }
 
-const getNgoDataByName = async (req, res) => {
+const getEcardDataByName = async (req, res) => {
     try {
-        const data = await find(res, ngoData, { 'ngoName': req.params.ngoName });
+        const data = await find(res, ecardData, { 'ecardName': req.params.ecardName });
         appDeafultResponse(res, true, data);
     }
     catch (err) {
@@ -79,10 +82,10 @@ const getNgoDataByName = async (req, res) => {
     }
 }
 module.exports = {
-    addNgoDetails,
-    getNgoDetails,
-    getNgoDataById,
-    deleteNgoDataByID,
-    updateNgoData,
-    getNgoDataByName
+    addEcardDetails,
+    getEcardDetails,
+    getEcardDataById,
+    deleteEcardDataByID,
+    updateEcardData,
+    getEcardDataByName
 }

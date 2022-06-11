@@ -45,7 +45,10 @@ const getTreesById = async (req, res) => {
 }
 const deleteTreesByID = async (req, res) => {
     try {
-        const data = await deleteAll(res, treeData);
+        const query = {
+            _id: req.params.treeId
+        }
+        const data = await deleteAll(res, treeData,query);
 
         appDeafultResponse(res, true, data);
     }
