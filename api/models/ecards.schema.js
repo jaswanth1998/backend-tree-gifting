@@ -18,7 +18,7 @@ const ecardschema= new mongoose.Schema({
         required: true
     },
     openFor:{
-        type:String,
+        type:[String],
         required: true
     },
 
