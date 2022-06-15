@@ -46,7 +46,7 @@ const orderschema= new mongoose.Schema({
         required: true
     },
     isSenderRepeatUser:{
-        type:Boolean,
+        type:String,
         required: true
     },
     receiverPhoneNumber:{

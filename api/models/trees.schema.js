@@ -31,6 +31,10 @@ const treeschema= new mongoose.Schema({
         type:String,
         // required: true
     },
+    locationId:{
+        type:String,
+        // required: true
+    },
     isLive:{
         type:String,
         required: true
