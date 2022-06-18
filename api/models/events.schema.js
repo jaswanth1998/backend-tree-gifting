@@ -16,6 +16,9 @@ const eventschema= new mongoose.Schema({
     isLive:{
         type:String,
         required: true
+    },
+    originalId:{
+        type:String
     }
 
 });

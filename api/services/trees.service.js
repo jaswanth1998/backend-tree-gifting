@@ -8,7 +8,8 @@ const {
     updateOne,
     updateAll,
     deleteOne,
-    deleteAll
+    deleteAll,
+    lookUpAndUnwind
 } = require('./../helpers/promiseCurd.helper');
 
 //const { merchantData } = require('../../merchantData/merchant.schema');
@@ -24,8 +25,23 @@ const addTreeDetils = async (req, res) => {
 }
 const getTreeDetails = async (req, res) => {
     try {
-        const data = await getAllData(res, treeData);
-
+        // treeData.aggregate(
+        //     [
+        //         {
+        //             $lookup: {
+        //                 from: "ngos", // collection name in db
+        //                 localField: "ngoId",
+        //                 foreignField:{$object:"_id"},
+        //                 as: "worksnapsTimeEntries"
+        //             }
+        //         }
+        //     ]
+        // ).then((data)=>{
+        //     appDeafultResponse(res, true, data);
+        // })
+        // const data = await getAllData(res, treeData);
+        
+        const data =  await lookUpAndUnwind(treeData,"ngos",'ngoId','_id','ngos',false,true)
         appDeafultResponse(res, true, data);
     } catch (err) {
         appDeafultResponse(res, false, err);

@@ -9,6 +9,9 @@ const locationschema= new mongoose.Schema({
     pincode:{
         type:Number,
         required: true
+    },
+    originalId:{
+        type:String
     }
 
 });

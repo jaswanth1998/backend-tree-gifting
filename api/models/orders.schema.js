@@ -88,6 +88,9 @@ const orderschema= new mongoose.Schema({
     senderMessage:{
         type:String,
         //required: true
+    },
+    originalId:{
+        type:String
     }
 });
 const orderData = mongoose.model('Orders',orderschema);

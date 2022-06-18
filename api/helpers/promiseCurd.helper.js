@@ -7,7 +7,10 @@ const addData = (res, model) => {
     return new Promise((resolve, reject) => {
         model.save((err, data) => {
             if (err) reject(err);
-            else resolve(data);
+            else {
+                resolve(data)
+                // updateObjectId(model,data)
+            };
         });
     });
 }
@@ -65,6 +68,41 @@ const deleteAll = (res, model, query) => {
     });
 }
 
+const lookUpAndUnwind = (model, collections, localField, foreignField, as,isUnwid,preserveNulls) => {
+    const aggration = []
+    aggration.push(
+        {
+            '$lookup': {
+                'from': collections,
+                'localField': localField,
+                'foreignField': foreignField,
+                'as': as
+            }
+        }
+    )
+    if(isUnwid){
+        aggration.push(
+            {
+                '$unwind': {
+                    'path': '$'+as,
+                    'includeArrayIndex': 'string',
+                    'preserveNullAndEmptyArrays': false
+                }
+            }
+        )
+    }
+    return new Promise((resolve, reject) => {
+     model.aggregate(
+        aggration
+    )
+    .exec((err,data)=>{
+        if(err)reject(err)
+        resolve(data)
+    });
+});
+
+}
+
 module.exports = {
     addData,
     getAllData,
@@ -72,5 +110,6 @@ module.exports = {
     updateOne,
     updateAll,
     deleteOne,
-    deleteAll
+    deleteAll,
+    lookUpAndUnwind
 }

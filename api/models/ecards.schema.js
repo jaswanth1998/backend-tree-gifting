@@ -21,6 +21,9 @@ const ecardschema= new mongoose.Schema({
         type:[String],
         required: true
     },
+    originalId:{
+        type:String
+    }
 
 });
 const ecardData = mongoose.model('Ecards',ecardschema);

@@ -24,6 +24,9 @@ const projectdetails = {
         type:Number,
         required: true
     },
+    originalId:{
+        type:String
+    }
     
 }
 const ngoschema= new mongoose.Schema({
