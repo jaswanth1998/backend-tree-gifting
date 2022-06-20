@@ -25,7 +25,8 @@ const userSchema = new mongoose.Schema(
         },
         emailId: {
             type: String,
-            required: true
+            required: true,
+            unique:true
         },
         usetType: {
             type: String,
@@ -52,3 +53,9 @@ const userSchema = new mongoose.Schema(
 
     }
 )
+
+const userModel = mongoose.model('User', userSchema);
+
+module.exports = {
+    userModel
+}
