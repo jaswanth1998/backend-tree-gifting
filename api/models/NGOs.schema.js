@@ -1,33 +1,37 @@
 const mongoose = require('mongoose');
+const { Schema } = require("mongoose");
+const trees = {
+    treeName:{
+        type:String        
+    },
+    invenoory:{
+        type:String
+    },
+    cost:{
+        type:Number,
+        
+    },
+    treeId:{
+        type:Schema.Types.ObjectId
+    }
+}
+const ProjectLocationandTrees = {
+    projectLocation:{
+        type:String
+    },
+    projectLocationID:{
+        type:Schema.Types.ObjectId
+    },
+    trees:[trees]
+}
+
 const projectdetails = {
     projectName:{
-        type:String,
-        required: true
+        type:String,        
     },
-    projectNumber:{
-        type:Number,
-        //required: true
-    },
-    projectLocation:{
-        type:[String],
-        required: true
-    },
-    selectedTree:{
-        type:String,
-        required: true
-    },
-    inventoryForTree:{
-        type:String,
-        required: true
-    },
-    costPerSapling:{
-        type:Number,
-        required: true
-    },
-    originalId:{
-        type:String
+    ProjectLocationandTrees:{
+        type:[ProjectLocationandTrees]
     }
-    
 }
 const ngoschema= new mongoose.Schema({
     originalId:{
