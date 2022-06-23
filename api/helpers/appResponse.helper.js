@@ -7,10 +7,7 @@ module.exports = {
             });
         } else {
             console.log(data);
-            res.status(503).json({
-                success: false,
-                message: data,
-            });
+            res.status(503).send(data)
 
         }
     }

@@ -6,7 +6,8 @@ const ecards = require('./api/routers/ecards.router')
 const orders = require('./api/routers/orders.router')
 const locations = require('./api/routers/locations.router')
 const Users = require('./api/routers/users.router')
-
+const queries = require('./api/routers/queries.roters')
+const uploadPicRouter = require("./uploads.router");
 // router.use('/users', Address)
 router.use('/trees',trees)
 router.use('/ngo',ngo)
@@ -15,4 +16,6 @@ router.use('/ecards',ecards)
 router.use('/orders',orders)
 router.use('/locations',locations)
 router.use('/users',Users)
+router.use('/queries',queries)
+router.use('/images',uploadPicRouter)
 module.exports = router;
