@@ -50,7 +50,10 @@ juteBags.use('/api/v1', mainRouter)
 juteBags.get("/api", (req, res) => {
     res.send("I am working");
 });
+console.log(__dirname);
 juteBags.listen(port, () => {
     console.log("server up and running on PORT :", port);
 });
+
+
 
