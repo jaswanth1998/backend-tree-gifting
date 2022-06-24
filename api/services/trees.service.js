@@ -43,8 +43,57 @@ const getTreeDetails = async (req, res) => {
         // })
         // const data = await getAllData(res, treeData);
 
-        const data = await lookUpAndUnwind(treeData, "ngos", 'ngoId', '_id', 'ngos', false, true)
-        appDeafultResponse(res, true, data);
+        treeData.aggregate(
+            [
+                {
+                  '$lookup': {
+                    'from': 'ngos', 
+                    'localField': '_id', 
+                    'foreignField': 'projectDetails.ProjectLocationandTrees.trees.treeId', 
+                    'as': 'ngoTress'
+                  }
+                }, {
+                  '$lookup': {
+                    'from': 'locations', 
+                    'localField': 'ngoTress.projectDetails.ProjectLocationandTrees.projectLocationID', 
+                    'foreignField': '_id', 
+                    'as': 'locationNames'
+                  }
+                }, {
+                  '$project': {
+                    'treeName': 1, 
+                    'primaryTag': 1, 
+                    'secondaryTag': 1, 
+                    'icon': 1, 
+                    'images': 1, 
+                    'isLive': 1, 
+                    'treeIntroduction': 1, 
+                    'locationNames': 1
+                  }
+                }, {
+                  '$lookup': {
+                    'from': 'ngos', 
+                    'localField': '_id', 
+                    'foreignField': 'projectDetails.ProjectLocationandTrees.trees.treeId', 
+                    'as': 'result'
+                  }
+                },  {
+                    '$addFields': {
+                      'ngoName': '$result.ngoName'
+                    }
+                  },{
+                  '$project': {
+                    'result': 0
+                  }
+                }
+              ]
+        ).exec((err, data) => {
+            if (err) appDeafultResponse(res, false, err);
+            appDeafultResponse(res, true, data);
+        });
+
+        // const data = await lookUpAndUnwind(treeData, "ngos", 'ngoId', '_id', 'ngos', false, true)
+        // appDeafultResponse(res, true, data);
     } catch (err) {
         appDeafultResponse(res, false, err);
     }
@@ -94,7 +143,11 @@ const getTreesById = async (req, res) => {
                     '$addFields': {
                         'ngoName': '$result.ngoName'
                     }
-                }
+                },{
+                    '$project': {
+                      'result': 0
+                    }
+                  }
             ]
         ).exec((err, data) => {
             if (err) appDeafultResponse(res, false, err);
