@@ -36,7 +36,7 @@ const getOrderDetailsById = async (req, res) => {
     try {
         
         const data = await find(res, orderData,{
-            _id: req.params.eventId
+            _id: req.params.orderId
         });
         appDeafultResponse(res, true, data);
     } catch (err) {
