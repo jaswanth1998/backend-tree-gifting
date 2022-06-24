@@ -15,8 +15,8 @@ const { requestCheck } = require('./../middleware/request.middleware');
 router.post('/addOrderDetails', requestCheck, addOrderDetails);
 router.get('/getOrderDetails', requestCheck, getOrderDetails);
 router.get('/getOrderDetailsById/:orderId', requestCheck, getOrderDetailsById);
-router.get('/deleteOrderDataByID/:paymentId', requestCheck, deleteOrderDataByID);
-router.post('/updateOrderData/:eventId', requestCheck, updateOrderData);
+router.get('/deleteOrderDataByID/:orderId', requestCheck, deleteOrderDataByID);
+router.post('/updateOrderData/:orderId', requestCheck, updateOrderData);
 // router.get('/getordersByProductName/:productName', requestCheck, getordersByProductName);
 
 

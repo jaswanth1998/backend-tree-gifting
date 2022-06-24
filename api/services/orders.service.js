@@ -46,7 +46,7 @@ const getOrderDetailsById = async (req, res) => {
 const deleteOrderDataByID = async (req, res) => {
     try {
         const query = {
-            _id: req.params.paymentId
+            _id: req.params.orderId
         }
         const data = await deleteAll(res, orderData,query);
 
@@ -59,7 +59,7 @@ const deleteOrderDataByID = async (req, res) => {
 
 const updateOrderData = async (req, res) => {
     try {
-        let filter = { _id: req.params.paymentId };
+        let filter = { _id: req.params.orderId };
         let query = {
             ...req.appData,
             updateOn: new Date()
