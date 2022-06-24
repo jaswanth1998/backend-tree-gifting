@@ -11,7 +11,8 @@ const {
     deleteAll,
     lookUpAndUnwind
 } = require('./../helpers/promiseCurd.helper');
-const { ObjectId } = require("mongoose");
+const { Types } = require("mongoose");
+const mongoose = require('mongoose');
 
 //const { merchantData } = require('../../merchantData/merchant.schema');
 const { treeData } = require('./../models/trees.schema');
@@ -41,8 +42,8 @@ const getTreeDetails = async (req, res) => {
         //     appDeafultResponse(res, true, data);
         // })
         // const data = await getAllData(res, treeData);
-        
-        const data =  await lookUpAndUnwind(treeData,"ngos",'ngoId','_id','ngos',false,true)
+
+        const data = await lookUpAndUnwind(treeData, "ngos", 'ngoId', '_id', 'ngos', false, true)
         appDeafultResponse(res, true, data);
     } catch (err) {
         appDeafultResponse(res, false, err);
@@ -54,64 +55,49 @@ const getTreesById = async (req, res) => {
         treeData.aggregate(
             [
                 {
-                  '$match': {
-                    '_id': new ObjectId(req.params.treeId)
-                  }
+                    '$match': {
+                        '_id': Types.ObjectId(req.params.treeId)
+                    }
                 }, {
-                  '$lookup': {
-                    'from': 'ngos', 
-                    'localField': '_id', 
-                    'foreignField': 'projectDetails.ProjectLocationandTrees.trees.treeId', 
-                    'as': 'ngoTress'
-                  }
+                    '$lookup': {
+                        'from': 'ngos',
+                        'localField': '_id',
+                        'foreignField': 'projectDetails.ProjectLocationandTrees.trees.treeId',
+                        'as': 'ngoTress'
+                    }
                 }, {
-                  '$unwind': {
-                    'path': '$ngoTress', 
-                    'preserveNullAndEmptyArrays': true
-                  }
+                    '$lookup': {
+                        'from': 'locations',
+                        'localField': 'ngoTress.projectDetails.ProjectLocationandTrees.projectLocationID',
+                        'foreignField': '_id',
+                        'as': 'locationNames'
+                    }
                 }, {
-                  '$unwind': {
-                    'path': '$ngoTress.projectDetails', 
-                    'preserveNullAndEmptyArrays': true
-                  }
+                    '$project': {
+                        'treeName': 1,
+                        'primaryTag': 1,
+                        'secondaryTag': 1,
+                        'icon': 1,
+                        'images': 1,
+                        'isLive': 1,
+                        'treeIntroduction': 1,
+                        'locationNames': 1
+                    }
                 }, {
-                  '$lookup': {
-                    'from': 'locations', 
-                    'localField': 'ngoTress.projectDetails.ProjectLocationandTrees.projectLocationID', 
-                    'foreignField': '_id', 
-                    'as': 'locationNames'
-                  }
+                    '$lookup': {
+                        'from': 'ngos',
+                        'localField': '_id',
+                        'foreignField': 'projectDetails.ProjectLocationandTrees.trees.treeId',
+                        'as': 'result'
+                    }
                 }, {
-                  '$unwind': {
-                    'path': '$locationNames', 
-                    'preserveNullAndEmptyArrays': true
-                  }
-                }, {
-                  '$project': {
-                    'treeName': 1, 
-                    'primaryTag': 1, 
-                    'secondaryTag': 1, 
-                    'icon': 1, 
-                    'images': 1, 
-                    'isLive': 1, 
-                    'treeIntroduction': 1, 
-                    'locationNames': 1
-                  }
-                }, {
-                  '$lookup': {
-                    'from': 'ngos', 
-                    'localField': '_id', 
-                    'foreignField': 'projectDetails.ProjectLocationandTrees.trees.treeId', 
-                    'as': 'result'
-                  }
-                }, {
-                  '$addFields': {
-                    'ngoName': '$result.ngoName'
-                  }
+                    '$addFields': {
+                        'ngoName': '$result.ngoName'
+                    }
                 }
-              ]
-        )  .exec((err,data)=>{
-            if(err)appDeafultResponse(res, false, err);
+            ]
+        ).exec((err, data) => {
+            if (err) appDeafultResponse(res, false, err);
             appDeafultResponse(res, true, data);
         });
         // const data = await find(res, treeData,{
@@ -128,7 +114,7 @@ const deleteTreesByID = async (req, res) => {
         const query = {
             _id: req.params.treeId
         }
-        const data = await deleteAll(res, treeData,query);
+        const data = await deleteAll(res, treeData, query);
 
         appDeafultResponse(res, true, data);
     }
