@@ -91,6 +91,11 @@ const orderschema= new mongoose.Schema({
     },
     originalId:{
         type:String
+    },
+    status:{
+        type:String,
+        required:true,
+        enum:['open','in progress','planted','concluded']
     }
 });
 const orderData = mongoose.model('Orders',orderschema);
