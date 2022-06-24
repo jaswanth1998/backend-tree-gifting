@@ -95,7 +95,8 @@ const orderschema= new mongoose.Schema({
     status:{
         type:String,
         required:true,
-        enum:['open','in progress','planted','concluded']
+        enum:['open','in progress','planted','concluded'],
+        default:'open'
     }
 });
 const orderData = mongoose.model('Orders',orderschema);
