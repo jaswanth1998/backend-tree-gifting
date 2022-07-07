@@ -121,18 +121,20 @@ const getTreesById = async (req, res) => {
                         'foreignField': '_id',
                         'as': 'locationNames'
                     }
-                }, {
-                    '$project': {
-                        'treeName': 1,
-                        'primaryTag': 1,
-                        'secondaryTag': 1,
-                        'icon': 1,
-                        'images': 1,
-                        'isLive': 1,
-                        'treeIntroduction': 1,
-                        'locationNames': 1
-                    }
-                }, {
+                }, 
+                // {
+                //     '$project': {
+                //         'treeName': 1,
+                //         'primaryTag': 1,
+                //         'secondaryTag': 1,
+                //         'icon': 1,
+                //         'images': 1,
+                //         'isLive': 1,
+                //         'treeIntroduction': 1,
+                //         'locationNames': 1
+                //     }
+                // },
+                 {
                     '$lookup': {
                         'from': 'ngos',
                         'localField': '_id',

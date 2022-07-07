@@ -41,6 +41,14 @@ const searchTrees = async (req, res) => {
             }
         },
     )
+    aggregations.push( {
+        '$lookup': {
+            'from': 'locations',
+            'localField': 'ngos.projectDetails.ProjectLocationandTrees.projectLocationID',
+            'foreignField': '_id',
+            'as': 'locationNames'
+        }
+    })
     if (req.appData.location) {
         aggregations.push({
             '$match': {
@@ -48,7 +56,7 @@ const searchTrees = async (req, res) => {
             }
         })
     }
-   
+    
     treeData.aggregate(
         aggregations
     ).exec((err, data) => {
