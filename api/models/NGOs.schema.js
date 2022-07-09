@@ -40,6 +40,9 @@ const projectdetails = {
         type: String,
 
     },
+    report:{
+        type: String
+    }
 }
 const ngoschema = new mongoose.Schema({
     originalId: {

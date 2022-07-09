@@ -131,6 +131,21 @@ const updateVendorProjectLive = (req, res) => {
         })
 }
 
+const updateVendorProjectReport = (req, res) => {
+
+    ngoData.updateOne(
+        {
+            "projectDetails._id": Types.ObjectId(req.appData.projectId)
+        },
+        {
+            'projectDetails.$.report': req.appData.report
+        },
+        (err, data) => {
+            if (err) appDeafultResponse(res, false, err);
+            else appDeafultResponse(res, true, data);
+        })
+}
+
 const updateVendorProjectLocationLive = (req, res) => {
     ngoData.updateOne(
         {
@@ -154,5 +169,6 @@ module.exports = {
     getNgoDataByName,
     vendorProjects,
     updateVendorProjectLive,
-    updateVendorProjectLocationLive
+    updateVendorProjectLocationLive,
+    updateVendorProjectReport
 }

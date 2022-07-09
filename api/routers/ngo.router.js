@@ -8,7 +8,8 @@ const {
     getNgoDataByName,
     vendorProjects,
     updateVendorProjectLive,
-    updateVendorProjectLocationLive
+    updateVendorProjectLocationLive,
+    updateVendorProjectReport
  } = require('./../services/ngo.service');
 const { requestCheck } = require('./../middleware/request.middleware');
 
@@ -25,5 +26,6 @@ router.get('/vendorProjects',requestCheck,vendorProjects)
 router.post('/updateVendorProject',requestCheck,updateVendorProjectLive)
 
 router.post('/updateVendorProjectLocationLive',requestCheck,updateVendorProjectLocationLive)
+router.post('/updateVendorProjectReport',requestCheck,updateVendorProjectReport)
 
 module.exports = router;
