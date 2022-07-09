@@ -1,6 +1,20 @@
 const mongoose = require('mongoose')
 const { Schema } = require("mongoose")
 
+chat = {
+    type:{
+        type:String        
+    },
+    reply:{
+        type:String
+    },
+    date:{
+        type:Date,
+        default: Date.now,
+        
+    }
+}
+
 const queriesSchema = new mongoose.Schema({
     querieId:{
         type:String
@@ -17,6 +31,7 @@ const queriesSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    chats:[chat],
     status:{
         type:String,
         required:true,

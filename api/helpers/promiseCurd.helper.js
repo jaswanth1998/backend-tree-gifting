@@ -35,10 +35,12 @@ const find = (res, model, query) => {
 
 const updateOne = (res, model, updateQuery, query) => {
     return new Promise((resolve, reject) => {
-        model.updateOne(updateQuery, query, (err, data) => {
+        model.updateOne(updateQuery, query,
+             (err, data) => {
             if (err) reject(err);
             else resolve(data);
-        })
+        }
+        )
     });
 }
 const updateAll = (res, model, updateQuery, query) => {
