@@ -107,7 +107,8 @@ const getTreesById = async (req, res) => {
                     '$match': {
                         '_id': Types.ObjectId(req.params.treeId)
                     }
-                }, {
+                }, 
+                {
                     '$lookup': {
                         'from': 'ngos',
                         'localField': '_id',

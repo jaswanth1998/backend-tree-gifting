@@ -41,5 +41,5 @@ const requestCheck = async (req, res, next) => {
 }
 
 module.exports = {
-    requestCheck
+    requestCheck,
 }
