@@ -185,61 +185,18 @@ const showRecommendation = (req, res) => {
 
 
 
-    aggregateIt.push(
-        {
-            '$lookup': {
-                'from': 'ngos',
-                'localField': '_id',
-                'foreignField': 'projectDetails.ProjectLocationandTrees.trees.treeId',
-                'as': 'ngoTress'
-            }
-        }, {
-        '$lookup': {
-            'from': 'locations',
-            'localField': 'ngoTress.projectDetails.ProjectLocationandTrees.projectLocationID',
-            'foreignField': '_id',
-            'as': 'locationNames'
-        }
-    },
-        {
-            '$project': {
-                'treeName': 1,
-                'primaryTag': 1,
-                'secondaryTag': 1,
-                'icon': 1,
-                'images': 1,
-                'isLive': 1,
-                'treeIntroduction': 1,
-                'locationNames': 1
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'ngos',
-                'localField': '_id',
-                'foreignField': 'projectDetails.ProjectLocationandTrees.trees.treeId',
-                'as': 'result'
-            }
-        }, {
-        '$addFields': {
-            'ngoName': '$result.ngoName'
-        }
-    }, {
-        '$project': {
-            'result': 0
-        }
-    }
-    )
+ 
     treeData.aggregate(
         aggregations
     ).exec((err, data) => {
         if (err) appDeafultResponse(res, false, err);
-        if(data.length < 5){
+        console.log(JSON.stringify(data,null,2))
+        if(data.length < 3){
             treeData.aggregate(
                 aggregateIt
-            ).exec((err, data) => {
+            ).exec((err, data1) => {
                 if (err) appDeafultResponse(res, false, err);
-                appDeafultResponse(res, true, data);
+                appDeafultResponse(res, true, [...data,...data1]);
             })
         }else{
             appDeafultResponse(res, true, data);

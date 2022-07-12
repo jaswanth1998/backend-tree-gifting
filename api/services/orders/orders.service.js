@@ -54,11 +54,17 @@ const getordersByProductName = (req, res) => {
     find(res, orderData, {'orderDetails.productName':req.params.productName});
 }
 
+
+const getOrderByFliter= (req,res)=>{
+    find(res,orderData,req.appData)
+}
+
 module.exports = {
     addOrderDetils,
     getOrderDetails,
     getOrderById,
     deleteOrderByID,
     updateOrders,
-    getordersByProductName
+    getordersByProductName,
+    getOrderByFliter
 }

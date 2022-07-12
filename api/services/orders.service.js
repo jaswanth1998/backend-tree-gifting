@@ -81,11 +81,23 @@ const getOrderDataByVendorName = async (req, res) => {
         appDeafultResponse(res, false, err);
     }
 }
+
+const getOrderByFliter= async (req,res)=>{
+   
+    try {
+        const data = await  find(res,orderData,req.appData)
+        appDeafultResponse(res, true, data);
+    }
+    catch (err) {
+        appDeafultResponse(res, false, err);
+    }
+}
 module.exports = {
     addOrderDetails,
     getOrderDetails,
     getOrderDetailsById,
     deleteOrderDataByID,
     updateOrderData,
-    getOrderDataByVendorName
+    getOrderDataByVendorName,
+    getOrderByFliter
 }
