@@ -23,7 +23,8 @@ const allowedOrigins = [
     "http://127.0.0.1:5500",
     "https://iwms.securisk.in",
     "https://eiwms.securisk.in",
-    "https://app.securisk.in"
+    "https://app.securisk.in",
+    "http://localhost:4201"
 ];
 juteBags.use(
     cors({

@@ -68,7 +68,8 @@ const getTreeDetails = async (req, res) => {
                     'images': 1, 
                     'isLive': 1, 
                     'treeIntroduction': 1, 
-                    'locationNames': 1
+                    'locationNames': 1,
+                    'price':1
                   }
                 }, {
                   '$lookup': {

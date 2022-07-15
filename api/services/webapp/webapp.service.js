@@ -25,7 +25,8 @@ const searchTrees = async (req, res) => {
             {
                 '$match': {
                     'treeName': {
-                        '$regex': req.appData.treeName
+                        '$regex': req.appData.treeName,
+                        '$options' : 'i' 
                     }
                 }
             }
@@ -72,7 +73,7 @@ const showRecommendation = (req, res) => {
     aggregations = []
 
     aggregateIt = [
-       
+
         {
             '$lookup': {
                 'from': 'ngos',
@@ -80,7 +81,13 @@ const showRecommendation = (req, res) => {
                 'foreignField': 'projectDetails.ProjectLocationandTrees.trees.treeId',
                 'as': 'ngoTress'
             }
-        }, {
+        },
+        {
+            '$addFields': {
+                'trees': '$ngoTress.projectDetails.ProjectLocationandTrees.trees'
+            }
+        },
+        {
             '$lookup': {
                 'from': 'locations',
                 'localField': 'ngoTress.projectDetails.ProjectLocationandTrees.projectLocationID',
@@ -97,7 +104,9 @@ const showRecommendation = (req, res) => {
                 'images': 1,
                 'isLive': 1,
                 'treeIntroduction': 1,
-                'locationNames': 1
+                'locationNames': 1,
+                'trees':1,
+                'price':1
             }
         },
         {
@@ -138,6 +147,7 @@ const showRecommendation = (req, res) => {
                 }
             }
         },
+
         {
             '$lookup': {
                 'from': 'ngos',
@@ -145,7 +155,15 @@ const showRecommendation = (req, res) => {
                 'foreignField': 'projectDetails.ProjectLocationandTrees.trees.treeId',
                 'as': 'ngoTress'
             }
-        }, {
+        },
+
+        {
+            '$addFields': {
+                'trees': '$ngoTress.projectDetails.ProjectLocationandTrees.trees'
+            }
+        },
+
+        {
             '$lookup': {
                 'from': 'locations',
                 'localField': 'ngoTress.projectDetails.ProjectLocationandTrees.projectLocationID',
@@ -162,7 +180,9 @@ const showRecommendation = (req, res) => {
                 'images': 1,
                 'isLive': 1,
                 'treeIntroduction': 1,
-                'locationNames': 1
+                'locationNames': 1,
+                'trees':1,
+                'price':1
             }
         },
         {
@@ -185,23 +205,23 @@ const showRecommendation = (req, res) => {
 
 
 
- 
+
     treeData.aggregate(
         aggregations
     ).exec((err, data) => {
         if (err) appDeafultResponse(res, false, err);
-        console.log(JSON.stringify(data,null,2))
-        if(data.length < 3){
+        console.log(JSON.stringify(data, null, 2))
+        if (data.length < 3) {
             treeData.aggregate(
                 aggregateIt
             ).exec((err, data1) => {
                 if (err) appDeafultResponse(res, false, err);
-                appDeafultResponse(res, true, [...data,...data1]);
+                appDeafultResponse(res, true, [...data, ...data1]);
             })
-        }else{
+        } else {
             appDeafultResponse(res, true, data);
         }
-        
+
     });
 
 }

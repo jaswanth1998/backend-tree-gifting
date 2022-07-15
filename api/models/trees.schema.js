@@ -47,6 +47,9 @@ const treeschema = new mongoose.Schema({
     },
     originalId: {
         type: String
+    },
+    price:{
+        type: Number
     }
 });
 const treeData = mongoose.model('Trees', treeschema);
