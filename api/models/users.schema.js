@@ -21,7 +21,8 @@ const userSchema = new mongoose.Schema(
         },
         mobileNo: {
             type: Number,
-            
+            required: true,
+            unique:true
         },
         emailId: {
             type: String,
