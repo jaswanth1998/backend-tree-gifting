@@ -32,25 +32,51 @@ const createUser = async (req, res) => {
 
 const signIn = async (req, res) => {
     try {
-        const userData = await find(res, userModel, { mobileNo: req.appData.mobileNo })
-        
-        if (userData.length > 0) {
-            appDeafultResponse(res, true, userData)
-            // const passwordCheck = compareSync(req.appData.password, userData[0].password);
-            // if (passwordCheck) {
-            //     delete userData[0].password
-            //     const jsontoken = sign({ result: userData[0] }, process.env.JWT_KEY, {
-            //         expiresIn: "24h",
-            //     });
-            //     appDeafultResponse(res, true, { userData: userData[0], token: jsontoken, })
-            // } else {
-            //     appDeafultResponse(res, true, {
-            //         'message': 'Incorrect password'
-            //     })
-            // }
+        if (req.appData.emailId) {
+            const userData = await find(res, userModel, { emailId: req.appData.emailId })
 
+            if (userData.length > 0) {
+                appDeafultResponse(res, true, userData)
+
+                const passwordCheck = compareSync(req.appData.password, userData[0].password);
+                if (passwordCheck) {
+                    delete userData[0].password
+                    const jsontoken = sign({ result: userData[0] }, process.env.JWT_KEY, {
+                        expiresIn: "24h",
+                    });
+                    appDeafultResponse(res, true, { userData: userData[0], token: jsontoken, })
+                } else {
+                    appDeafultResponse(res, true, {
+                        'message': 'Incorrect password'
+                    })
+                }
+
+            } else {
+                appDeafultResponse(res, true, { 'message': 'User does not registered' })
+            }
         } else {
-            appDeafultResponse(res, true, { 'message': 'User does not registered' })
+
+            const userData = await find(res, userModel, { mobileNo: req.appData.mobileNo })
+
+            if (userData.length > 0) {
+                appDeafultResponse(res, true, userData)
+
+                // const passwordCheck = compareSync(req.appData.password, userData[0].password);
+                // if (passwordCheck) {
+                //     delete userData[0].password
+                //     const jsontoken = sign({ result: userData[0] }, process.env.JWT_KEY, {
+                //         expiresIn: "24h",
+                //     });
+                //     appDeafultResponse(res, true, { userData: userData[0], token: jsontoken, })
+                // } else {
+                //     appDeafultResponse(res, true, {
+                //         'message': 'Incorrect password'
+                //     })
+                // }
+
+            } else {
+                appDeafultResponse(res, true, { 'message': 'User does not registered' })
+            }
         }
 
     } catch (err) {
