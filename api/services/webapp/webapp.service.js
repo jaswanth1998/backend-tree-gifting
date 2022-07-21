@@ -95,20 +95,7 @@ const showRecommendation = (req, res) => {
                 'as': 'locationNames'
             }
         },
-        {
-            '$project': {
-                'treeName': 1,
-                'primaryTag': 1,
-                'secondaryTag': 1,
-                'icon': 1,
-                'images': 1,
-                'isLive': 1,
-                'treeIntroduction': 1,
-                'locationNames': 1,
-                'trees':1,
-                'price':1
-            }
-        },
+   
         {
             '$lookup': {
                 'from': 'ngos',
